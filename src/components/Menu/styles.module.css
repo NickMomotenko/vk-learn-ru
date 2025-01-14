@@ -1,0 +1,19 @@
+.menu {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.24);
+    background: rgb(33, 150, 243);
+}
+
+.menu__list {
+    display: flex;
+}
+
+.menu__item {}
+
+.menu__link {
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.25px;
+    text-align: center;
+    padding: 23px 0;
+}
