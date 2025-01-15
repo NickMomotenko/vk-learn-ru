@@ -14,10 +14,10 @@
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         /* transform: scale(1.13); */
 
-        /* .card__bottom{
+        .card__bottom{
             visibility: visible;
             opacity: 1;
-        } */
+        }
     }
 }
 
@@ -25,8 +25,8 @@
     height: 94px;
     background: linear-gradient(180.00deg, rgba(255, 255, 255, 0), rgb(255, 255, 255) 58.854%);
 
-    visibility: visible;
-    opacity: 1;
+    visibility: hidden;
+    opacity: 0;
 
     transition: opacity .4s;
 

@@ -1,0 +1,7 @@
+.skeleton {
+    column-count: 5;
+    column-gap: 45px;
+    margin-top: 47px;
+}
+
+.skeleton__item {}

@@ -1,0 +1,53 @@
+.loader {
+    margin: 20px 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -15%;
+    opacity: 0;
+
+    transition: bottom .4s, bottom .2s;
+
+    &.active {
+        bottom: 2%;
+        opacity: 1;
+    }
+}
+
+.loader__content {
+    display: flex;
+    align-items: center;
+
+    padding: 10px 30px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 0 20px #ffffff;
+    border: 1px solid #f1f1f1f7;
+}
+
+.loader__text {
+    font-size: 20px;
+    color: #a400ffa3;
+}
+
+@keyframes test {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader__icon {
+    animation: test 2.5s linear forwards infinite;
+
+    width: 70px;
+    margin-right: 10px;
+}

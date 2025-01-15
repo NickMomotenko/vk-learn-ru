@@ -3,7 +3,7 @@ import { getData } from "../api/api";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useFetchedData = () => {
-  const [fetchedData, setFetchedData] = useState();
+  const [fetchedData, setFetchedData] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(false);
 
   const { data: storagedCats, setData } = useLocalStorage("catsList", []);
@@ -20,8 +20,8 @@ export const useFetchedData = () => {
     let data = await getData();
 
     if (data) {
-      setData(data);
-      setFetchedData(data);
+      // setData(data);
+      setFetchedData((prevData: any) => [...prevData, ...data]);
     } else {
       alert(
         "Ошибка..скорее всего сервер ушел на покой ). Попробуй включить VPN, возможно что то изменится"

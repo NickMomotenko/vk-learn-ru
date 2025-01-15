@@ -6,18 +6,27 @@ import { Card } from "../../components/Card";
 import styles from "./styles.module.css";
 import { List } from "../../components/List";
 import { useLikedCats } from "../../hooks/useLikedCats";
-import { Button } from "../../components/Button";
+
+import { useIntersectionObserver } from "react-intersection-observer-hook";
+import { CustomSkeleton } from "../../components/Skeleton";
+import { Loader } from "../../components/Loader";
+import { IntersectionBlock } from "../../components/IntersectionBlock";
 
 export const CatsContainer = () => {
-  const { fetchedData, getFetchedData } = useFetchedData();
+  const { fetchedData, getFetchedData, isLoadingData } = useFetchedData();
 
   const { addLikedCats } = useLikedCats();
 
-  useEffect(() => {
-    getFetchedData();
-  }, []);
+  const [ref, { entry }] = useIntersectionObserver();
+  const isVisible = entry && entry.isIntersecting;
 
-  console.log(fetchedData);
+  useEffect(() => {
+    console.log(`isVisible`, isVisible);
+
+    if (isVisible) {
+      getFetchedData();
+    }
+  }, [isVisible]); // isVisible
 
   return (
     <div className={styles.cats}>
@@ -31,7 +40,11 @@ export const CatsContainer = () => {
           />
         ))}
       </List>
-      <Button>Больше котов , большеееееее</Button>
+      <CustomSkeleton />
+
+      <IntersectionBlock ref={ref} />
+
+      <Loader active={isLoadingData} />
     </div>
   );
 };
