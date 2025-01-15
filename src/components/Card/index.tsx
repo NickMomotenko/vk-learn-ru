@@ -1,14 +1,22 @@
 import { Button } from "../Button";
 import styles from "./styles.module.css";
 
-import likeIcon from "../../assets/like.svg";
+import likeIcon from "../../assets/test.svg";
+import { CatTypes } from "../../types/types";
 
-export const Card = () => {
+export const Card: React.FC<CatTypes> = ({ url, tagName, onLikeClick }) => {
+  const RootTag = tagName ? tagName : "div";
+
   return (
-    <div className={styles.card}>
+    <RootTag className={styles.card}>
+      <img src={url} alt="" className={styles.card__image} loading="lazy" />
       <div className={styles.card__bottom}>
-        <Button icon={likeIcon} classes="card__button" />
+        <Button
+          icon={likeIcon}
+          classes={styles.card__button}
+          onClick={onLikeClick}
+        />
       </div>
-    </div>
+    </RootTag>
   );
 };

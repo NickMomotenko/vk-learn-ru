@@ -1,6 +1,10 @@
 .menu {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.24);
     background: rgb(33, 150, 243);
+
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 .menu__list {
@@ -10,10 +14,24 @@
 .menu__item {}
 
 .menu__link {
-    color: rgb(255, 255, 255);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 14px;
     line-height: 21px;
     letter-spacing: 0.25px;
     text-align: center;
-    padding: 23px 0;
+    padding: 23px 24px;
+
+    display: block;
+
+    transition: background .4s, color .4s;
+
+    &.active {
+        background: rgb(30, 136, 229);
+        color: #fff;
+    }
+
+    &:hover {
+        background: rgb(30, 136, 229);
+        color: #fff;
+    }
 }
