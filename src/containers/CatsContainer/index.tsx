@@ -21,10 +21,9 @@ export const CatsContainer = () => {
   const isVisible = entry && entry.isIntersecting;
 
   useEffect(() => {
-    console.log(`isVisible`, isVisible);
-
     if (isVisible) {
       getFetchedData();
+      console.log(`isVisible`);
     }
   }, [isVisible]); // isVisible
 

@@ -12,12 +12,13 @@ const requestOptions: any = {
   redirect: "follow",
 };
 
-export const getData = async () => {
+export const getData = async (limit: number) => {
   try {
     const response = await fetch(
-      "https://api.thecatapi.com/v1/images/search?limit=20&page=0",
+      `https://api.thecatapi.com/v1/images/search?limit=${limit}`,
       requestOptions
     );
+
     const data = await response.json();
 
     return data;

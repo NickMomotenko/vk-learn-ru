@@ -19,15 +19,17 @@ export const useLikedCats = () => {
   };
 
   const addLikedCats = (obj: CatTypes) => {
-    let searchable = likedCats?.find((like: any) => like?.id === obj?.id);
+    let searchable = likedCats?.find((like: CatTypes) => like?.id === obj?.id);
 
     if (!searchable) {
-      setLikedCats((prevState) => [...prevState, obj]);
-      setData((prevState) => [...prevState, obj]);
+      setLikedCats((prevState: any) => [...prevState, obj]);
+      setData((prevState: CatTypes[]) => [...prevState, obj]);
     }
   };
 
-  const removeLikedCats = (item: CatTypes) => {};
+  const removeLikedCats = (id: CatTypes) => {
+
+  };
 
   return { likedCats, addLikedCats };
 };
