@@ -1,5 +1,5 @@
 import { useFetchedData } from "../../hooks/useFetchedData";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { Card } from "../../components/Card";
 
@@ -11,9 +11,11 @@ import { useIntersectionObserver } from "react-intersection-observer-hook";
 import { Loader } from "../../components/Loader";
 import { IntersectionBlock } from "../../components/IntersectionBlock";
 import { CatTypes } from "../../types/types";
+import { Button } from "../../components/Button";
 
 export const CatsContainer = () => {
-  const { fetchedData, getFetchedData, isLoadingData } = useFetchedData();
+  const { fetchedData, getFetchedData, clearDataAndFetch, isLoadingData } =
+    useFetchedData();
 
   const { addLikedCats, removeLikedCats, likedCats } = useLikedCats();
 
@@ -51,6 +53,9 @@ export const CatsContainer = () => {
       </List>
       <IntersectionBlock ref={ref} />
 
+      <Button classes={styles.cats__upload} onClick={clearDataAndFetch}>
+        Сбросить хранилище с котами <br /> и загрузить все по новой
+      </Button>
       <Loader active={isLoadingData} />
     </div>
   );

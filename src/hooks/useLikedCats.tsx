@@ -6,20 +6,19 @@ export const useLikedCats = () => {
   const [likedCats, setLikedCats] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(false);
 
-  const { data: storagedCats, setData } = useLocalStorage("likedCats", []);
+  const [storagedCats, setData] = useLocalStorage("likedCats", []);
 
   useEffect(() => {
     getLikedCats();
   }, []);
 
   const getLikedCats = () => {
-    if (storagedCats.length) {
+    if (storagedCats?.length) {
       setLikedCats(storagedCats);
     }
   };
 
   const addLikedCats = (obj: CatTypes) => {
-
     let searchable = likedCats?.find((like: CatTypes) => like?.id === obj?.id);
 
     if (!searchable) {

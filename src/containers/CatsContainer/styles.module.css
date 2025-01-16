@@ -1,1 +1,19 @@
 .cats {}
+
+.cats__upload {
+    position: fixed;
+    top: 10%;
+    right: 2%;
+    z-index: 2;
+
+    background: #3c3ca6;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 10px;
+
+    transition: opacity .4s;
+
+    &:hover {
+        opacity: .95;
+    }
+}

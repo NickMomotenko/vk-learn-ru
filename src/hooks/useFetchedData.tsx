@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { getData } from "../api/api";
 import { CatTypes } from "../types/types";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useFetchedData = () => {
-  const [fetchedData, setFetchedData] = useState<CatTypes[] | []>([]);
+  const [fetchedData, setFetchedData] = useLocalStorage("catsData", []);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
   const defaultLoadCount = 20;
 
@@ -48,5 +49,10 @@ export const useFetchedData = () => {
     }
   };
 
-  return { fetchedData, isLoadingData, getFetchedData };
+  const clearDataAndFetch = async () => {
+    setFetchedData([]);
+    // await getFetchedData();
+  };
+
+  return { fetchedData, isLoadingData, getFetchedData, clearDataAndFetch };
 };
