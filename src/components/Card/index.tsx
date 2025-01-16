@@ -13,9 +13,7 @@ export const Card: React.FC<CatTypes> = ({
   const RootTag = tagName ? tagName : "div";
 
   return (
-    <RootTag
-      className={`${styles.card} ${isLiked === true ? styles.card__liked : ""}`}
-    >
+    <RootTag className={`${styles.card} ${isLiked ? styles.card__liked : ""}`}>
       <img src={url} alt="" className={styles.card__image} loading="lazy" />
       <div className={styles.card__bottom}>
         <Button

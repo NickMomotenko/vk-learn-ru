@@ -4,13 +4,13 @@ import { useLikedCats } from "../../hooks/useLikedCats";
 import styles from "./styles.module.css";
 
 export const LikedCatsContainer = () => {
-  const { likedCats, addLikedCats } = useLikedCats();
+  const { likedCats, addLikedCats, removeLikedCats } = useLikedCats();
 
   return (
     <div className={styles.liked}>
       <List>
         {likedCats?.map((cat: any) => {
-          let isLiked: boolean = likedCats?.find(
+          let isLiked: boolean = likedCats?.some(
             (likedItem: CatTypes) => likedItem?.id === cat?.id
           );
 
@@ -18,8 +18,12 @@ export const LikedCatsContainer = () => {
             <Card
               key={cat?.id}
               tagName="li"
-              onLikeClick={() => addLikedCats(cat)}
-              isLiked={isLiked ? true : false}
+              onLikeClick={
+                !isLiked
+                  ? () => addLikedCats(cat)
+                  : () => removeLikedCats(cat?.id)
+              }
+              isLiked={isLiked}
               {...cat}
             />
           );

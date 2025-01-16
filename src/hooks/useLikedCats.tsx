@@ -19,6 +19,7 @@ export const useLikedCats = () => {
   };
 
   const addLikedCats = (obj: CatTypes) => {
+
     let searchable = likedCats?.find((like: CatTypes) => like?.id === obj?.id);
 
     if (!searchable) {
@@ -28,8 +29,15 @@ export const useLikedCats = () => {
   };
 
   const removeLikedCats = (id: CatTypes) => {
+    let removed = likedCats?.find((removedItem) => removedItem?.id === id);
 
+    const updateLikedCats = likedCats?.filter(
+      (filteredItem) => filteredItem?.id !== removed?.id
+    );
+
+    setLikedCats([...updateLikedCats]);
+    setData([...updateLikedCats]);
   };
 
-  return { likedCats, addLikedCats };
+  return { likedCats, addLikedCats, removeLikedCats };
 };

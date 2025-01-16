@@ -1,6 +1,36 @@
 .list {
-    display: flex;
-    /* justify-content: center; */
-    flex-wrap: wrap;
-    gap: 47px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 45px;
+}
+
+@media screen and (max-width:940px) {
+    .list {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width:600px) {
+    .list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width:600px) {
+    .list {
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width:350px) {
+    .list {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
