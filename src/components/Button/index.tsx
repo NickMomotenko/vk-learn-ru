@@ -18,7 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button className={`${styles.button} ${classes}`} onClick={onClick}>
       {icon && <ReactSVG src={icon} fill="red" />}
-      <span className={styles.button__text}>{children}</span>
+      {children && <span className={styles.button__text}>{children}</span>}
     </button>
   );
 };
