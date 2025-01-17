@@ -1,5 +1,10 @@
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 
-export const IntersectionBlock = forwardRef((props, ref) => {
-  return <div ref={ref}></div>;
+type IntersectionBlockProps = React.HTMLProps<HTMLDivElement>;
+
+export const IntersectionBlock = forwardRef<
+  HTMLDivElement,
+  IntersectionBlockProps
+>((props, ref) => {
+  return <div ref={ref} {...props}></div>;
 });

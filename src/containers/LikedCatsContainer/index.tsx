@@ -1,6 +1,10 @@
 import { Card } from "../../components/Card";
 import { List } from "../../components/List";
+
 import { useLikedCats } from "../../hooks/useLikedCats";
+
+import { CatTypes } from "../../types/types";
+
 import styles from "./styles.module.css";
 
 export const LikedCatsContainer = () => {

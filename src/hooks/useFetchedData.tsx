@@ -34,16 +34,18 @@ export const useFetchedData = () => {
           (item: CatTypes) => !existingIds.includes(item.id)
         );
 
-        setFetchedData((prevData) => [
+        setFetchedData((prevData: any) => [
           ...prevData,
           ...uniqueCatData,
           ...(additionalUniqueData || []),
         ]);
       } else {
-        setFetchedData((prevData) => [...prevData, ...uniqueCatData]);
+        setFetchedData((prevData: any) => [...prevData, ...uniqueCatData]);
       }
     } catch (error) {
       alert("Произошла ошибка при загрузке данных.");
+
+      await getFetchedData();
     } finally {
       setIsLoadingData(false);
     }

@@ -1,19 +1,21 @@
-import { useFetchedData } from "../../hooks/useFetchedData";
 import { useEffect } from "react";
 
-import { Card } from "../../components/Card";
-
-import styles from "./styles.module.css";
-import { List } from "../../components/List";
-import { useLikedCats } from "../../hooks/useLikedCats";
-
 import { useIntersectionObserver } from "react-intersection-observer-hook";
+
+import { Card } from "../../components/Card";
+import { List } from "../../components/List";
+import { Button } from "../../components/Button";
 import { Loader } from "../../components/Loader";
 import { IntersectionBlock } from "../../components/IntersectionBlock";
+
+import { useFetchedData } from "../../hooks/useFetchedData";
+import { useLikedCats } from "../../hooks/useLikedCats";
+
 import { CatTypes } from "../../types/types";
-import { Button } from "../../components/Button";
 
 import updateIcon from "../../assets/update.svg";
+
+import styles from "./styles.module.css";
 
 export const CatsContainer = () => {
   const { fetchedData, getFetchedData, clearDataAndFetch, isLoadingData } =

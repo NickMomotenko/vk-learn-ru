@@ -1,10 +1,18 @@
 import { Button } from "../Button";
-import styles from "./styles.module.css";
 
-import likeIcon from "../../assets/test.svg";
 import { CatTypes } from "../../types/types";
 
-export const Card: React.FC<CatTypes> = ({
+import styles from "./styles.module.css";
+
+import likeIcon from "../../assets/like.svg";
+
+interface CatProps extends CatTypes {
+  tagName?: string | any;
+  onLikeClick?: () => {};
+  isLiked?: boolean;
+}
+
+export const Card: React.FC<CatProps> = ({
   url,
   tagName,
   onLikeClick,
