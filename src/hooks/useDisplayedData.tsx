@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useDisplayedData = (data, initialCount = 20) => {
+export const useDisplayedData = (data?: any, initialCount = 20) => {
   const [displayCount, setDisplayCount] = useState(initialCount);
   const [displayedData, setDisplayedData] = useState([]);
 
@@ -9,9 +9,11 @@ export const useDisplayedData = (data, initialCount = 20) => {
   //     loadMoreDisplayedData();
   //   }, [data]);
 
-  const loadMoreDisplayedData = () => {
-    console.log(data);
+  useEffect(() => {
+    
+  }, []);
 
+  const loadMoreDisplayedData = (data) => {
     setDisplayCount((prevCount) => {
       setDisplayedData(data.slice(0, prevCount));
 

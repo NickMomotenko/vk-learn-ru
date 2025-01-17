@@ -8,7 +8,7 @@ export const useFetchedData = () => {
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
   const defaultLoadCount = 20;
 
-  const getFetchedData = async (loadCount = defaultLoadCount) => {
+  const getFetchedData = async ({ loadCount = defaultLoadCount, callback }) => {
     setIsLoadingData(true);
 
     try {
@@ -34,26 +34,34 @@ export const useFetchedData = () => {
           (item: CatTypes) => !existingIds.includes(item.id)
         );
 
-        setFetchedData((prevData: any) => [
-          ...prevData,
-          ...uniqueCatData,
-          ...(additionalUniqueData || []),
-        ]);
+        setFetchedData((prevData: any) => {
+          let updatedData = [
+            ...prevData,
+            ...uniqueCatData,
+            ...(additionalUniqueData || []),
+          ];
+          callback && callback(updatedData);
+          return updatedData;
+        });
       } else {
-        setFetchedData((prevData: any) => [...prevData, ...uniqueCatData]);
+        setFetchedData((prevData: any) => {
+          let updatedData = [...prevData, ...uniqueCatData];
+          callback && callback(updatedData);
+          return updatedData;
+        });
       }
     } catch (error) {
       alert("Произошла ошибка при загрузке данных.");
 
-      await getFetchedData();
+      // await getFetchedData({});
     } finally {
       setIsLoadingData(false);
     }
   };
 
   const clearDataAndFetch = async () => {
-    setFetchedData([]);
-    // await getFetchedData();
+    setFetchedData([]); // Очищаем данные
+    // await getFetchedData({ loadCount: defaultLoadCount });
   };
 
   return { fetchedData, isLoadingData, getFetchedData, clearDataAndFetch };

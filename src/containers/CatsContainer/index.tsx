@@ -17,35 +17,29 @@ import updateIcon from "../../assets/update.svg";
 
 import styles from "./styles.module.css";
 import { useDisplayedData } from "../../hooks/useDisplayedData";
+import { IntersectionBlock } from "../../components/IntersectionBlock";
 
 export const CatsContainer = () => {
   const { fetchedData, getFetchedData, clearDataAndFetch, isLoadingData } =
     useFetchedData();
 
   const { addLikedCats, removeLikedCats, likedCats } = useLikedCats();
-  const {
-    displayedData,
-    displayCount,
-    setDisplayedData,
-    loadMoreDisplayedData,
-  } = useDisplayedData(fetchedData);
+  const { displayedData, loadMoreDisplayedData } = useDisplayedData();
 
   const [ref, { entry }] = useIntersectionObserver();
   const isVisible = entry && entry.isIntersecting;
 
   useEffect(() => {
-    handleClickMore();
-  }, []);
+    if (isVisible) handleClickMore();
+  }, [isVisible]);
 
   const handleClickMore = async () => {
     if (displayedData.length < fetchedData.length) {
       console.log("local");
-      loadMoreDisplayedData();
+      loadMoreDisplayedData(fetchedData);
     } else {
       console.log("api");
-      await getFetchedData(); // Загружаем новые данные из API
-
-      loadMoreDisplayedData();
+      getFetchedData({ callback: loadMoreDisplayedData });
     }
   };
 
@@ -73,11 +67,14 @@ export const CatsContainer = () => {
         })}
       </List>
       <Button onClick={handleClickMore}>Давай больше котов</Button>
-      {/* <IntersectionBlock ref={ref} /> */}
+      <IntersectionBlock ref={ref} />
 
       <Button
         classes={styles.cats__upload}
-        onClick={clearDataAndFetch}
+        onClick={() => {
+          clearDataAndFetch();
+          getFetchedData({ callback: loadMoreDisplayedData });
+        }}
         icon={updateIcon}
       />
       <Loader active={isLoadingData} />
