@@ -1,49 +1,31 @@
 import { useEffect, useState } from "react";
 
-export const useDisplayedData = (data: any = [], initialCount = 20) => {
-  const [displayCount, setDisplayCount] = useState(initialCount);
-  const [displayedData, setDisplayedData] = useState([]);
+export const useRenderData = (
+  fetchedData,
+  getFetchedData,
+  initialCount = 20
+) => {
+  const [count, setCount] = useState(initialCount);
+  const [renderedData, setRenderedData] = useState([]);
 
   useEffect(() => {
-    console.log("первый");
-    setDisplayedData(data?.slice(0, initialCount) || []);
-  }, []);
+    // Обновляем отображаемые данные при изменении fetchedData или count
+    setRenderedData(fetchedData.slice(0, count));
+  }, [fetchedData, count]);
 
-  useEffect(() => {
-    console.log('сюда');
-    if (data.length === initialCount || data.length === 0) {
-      setDisplayedData(data?.slice(0, initialCount) || []);
-    } else {
-      console.log('сюда');
-      
-      setDisplayCount((prevCount) => {
-        setDisplayedData(data?.slice(0, prevCount + initialCount) || []);
+  const loadMoreData = () => {
+    const newCount = count + 20;
+    setCount(newCount);
 
-        return prevCount + initialCount;
-      });
+    // Если мы достигли конца fetchedData, загружаем больше данных
+    if (newCount > fetchedData.length) {
+      getFetchedData();
     }
-  }, [data]);
-
-  const loadMoreDisplayedData = () => {
-    // if (data.length === initialCount || data.length === 0) {
-    //   setDisplayedData(data?.slice(0, initialCount) || []);
-    // } else {
-    //   setDisplayCount((prevCount) => {
-    //     setDisplayedData(data?.slice(0, prevCount + initialCount) || []);
-
-    //     return prevCount + initialCount;
-    //   });
-    // }
-  };
-
-  const reset = () => {
-    setDisplayCount(initialCount);
   };
 
   return {
-    displayCount,
-    displayedData,
-    loadMoreDisplayedData,
-    reset,
+    renderedData,
+    loadMoreData,
+    count,
   };
 };

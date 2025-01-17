@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { Card } from "../../components/Card";
 import { List } from "../../components/List";
 import { Button } from "../../components/Button";
@@ -10,47 +8,26 @@ import { useLikedCats } from "../../hooks/useLikedCats";
 
 import { CatTypes } from "../../types/types";
 
-import updateIcon from "../../assets/update.svg";
-
 import styles from "./styles.module.css";
+import { useRenderData } from "../../hooks/useDisplayedData";
+import { useEffect } from "react";
 
 export const CatsContainer = () => {
   const { fetchedData, getFetchedData, isLoadingData } = useFetchedData();
 
   const { addLikedCats, removeLikedCats, likedCats } = useLikedCats();
 
-  const [count, setCount] = useState(20);
-
-  const [renderedData, setRenderedData] = useState([]);
-
-  const loadData = () => {
-    if (fetchedData.length > 0) {
-      // Если данные уже загружены, просто обновляем renderedData
-      setRenderedData(fetchedData.slice(0, count));
-    } else {
-      // Если данных нет, загружаем их с сервера
-      getFetchedData();
-    }
-  };
+  const { renderedData, loadMoreData } = useRenderData(
+    fetchedData,
+    getFetchedData
+  );
 
   useEffect(() => {
-    loadData();
-  }, [fetchedData]); // Загружаем данные при изменении fetchedData
-
-  useEffect(() => {
-    // Обновляем отображаемые данные при изменении count
-    setRenderedData(fetchedData.slice(0, count));
-  }, [count, fetchedData]); // Обновляем отображаемые данные при изменении count или fetchedData
-
-  const handleMoreClick = () => {
-    const newCount = count + 20;
-    setCount(newCount);
-
-    // Если мы достигли конца fetchedData, загружаем больше данных
-    if (newCount > fetchedData.length) {
+    if (fetchedData.length === 0 && !isLoadingData) {
       getFetchedData();
     }
-  };
+  }, [fetchedData.length, getFetchedData, isLoadingData]);
+
   return (
     <div className={styles.cats}>
       <List>
@@ -74,16 +51,14 @@ export const CatsContainer = () => {
           );
         })}
       </List>
+      {!isLoadingData && (
+        <div className={styles.cats__upload_block}>
+          <Button onClick={loadMoreData} classes={styles.cats__upload}>
+            Хотим больше котооооввв...
+          </Button>
+        </div>
+      )}
 
-      <Button
-        classes={styles.cats__upload}
-        // onClick={() => {
-        //   clearDataAndFetch();
-        //   getFetchedData({ callback: loadMoreDisplayedData });
-        // }}
-        icon={updateIcon}
-      />
-      <Button onClick={handleMoreClick}>Загрузи еще</Button>
       <Loader active={isLoadingData} />
     </div>
   );

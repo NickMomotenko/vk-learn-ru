@@ -6,5 +6,6 @@
 @media screen and (max-width:1316px) {
     .content {
         padding: 0 2%;
+        padding-bottom: 45px;
     }
 }
