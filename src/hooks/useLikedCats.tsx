@@ -6,7 +6,7 @@ import { CatTypes } from "../types/types";
 
 export const useLikedCats = () => {
   const [likedCats, setLikedCats] = useState<CatTypes[] | []>([]);
-  const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
+  // const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
   const [storagedCats, setData] = useLocalStorage("likedCats", []);
 
