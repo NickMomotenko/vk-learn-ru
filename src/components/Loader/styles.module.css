@@ -33,6 +33,7 @@
 .loader__text {
     font-size: 20px;
     color: #a400ffa3;
+    white-space: nowrap;
 }
 
 @keyframes test {
@@ -50,4 +51,20 @@
 
     width: 70px;
     margin-right: 10px;
+}
+
+@media screen and (max-width:600px) {
+    .loader__icon {
+        width: 45px;
+    }
+}
+
+@media screen and (max-width:350px) {
+    .loader__text {
+        display: none;
+    }
+
+    .loader__icon {
+        margin-right: 0;
+    }
 }

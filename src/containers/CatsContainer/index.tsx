@@ -13,6 +13,8 @@ import { IntersectionBlock } from "../../components/IntersectionBlock";
 import { CatTypes } from "../../types/types";
 import { Button } from "../../components/Button";
 
+import updateIcon from "../../assets/update.svg";
+
 export const CatsContainer = () => {
   const { fetchedData, getFetchedData, clearDataAndFetch, isLoadingData } =
     useFetchedData();
@@ -53,9 +55,11 @@ export const CatsContainer = () => {
       </List>
       <IntersectionBlock ref={ref} />
 
-      <Button classes={styles.cats__upload} onClick={clearDataAndFetch}>
-        Сбросить хранилище с котами <br /> и загрузить все по новой
-      </Button>
+      <Button
+        classes={styles.cats__upload}
+        onClick={clearDataAndFetch}
+        icon={updateIcon}
+      />
       <Loader active={isLoadingData} />
     </div>
   );

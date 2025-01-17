@@ -35,3 +35,13 @@
         color: #fff;
     }
 }
+
+@media screen and (max-width:350px) {
+    .menu__list{
+        justify-content: center;
+    }
+
+    .menu__link{
+        padding: 13px;
+    }
+}
