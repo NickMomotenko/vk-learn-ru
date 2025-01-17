@@ -58,8 +58,7 @@ export const CatsContainer = () => {
           </Button>
         </div>
       )}
-
-      <Loader active={isLoadingData} />
+      <Loader active={isLoadingData} text="Загружаю котов с сервера..." />
     </div>
   );
 };

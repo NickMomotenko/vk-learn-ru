@@ -6,7 +6,7 @@ type ButtonProps = {
   children?: React.ReactNode;
   icon?: string;
   classes?: string;
-  onClick?: () => {};
+  onClick?: () => {} | any;
 };
 
 export const Button: React.FC<ButtonProps> = ({
