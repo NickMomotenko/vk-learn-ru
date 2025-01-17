@@ -1,24 +1,39 @@
 import { useEffect, useState } from "react";
 
-export const useDisplayedData = (data?: any, initialCount = 20) => {
+export const useDisplayedData = (data: any = [], initialCount = 20) => {
   const [displayCount, setDisplayCount] = useState(initialCount);
   const [displayedData, setDisplayedData] = useState([]);
 
-  //   useEffect(() => {
-  //     // При изменении данных обновляем отображаемые данные
-  //     loadMoreDisplayedData();
-  //   }, [data]);
-
   useEffect(() => {
-    
+    console.log("первый");
+    setDisplayedData(data?.slice(0, initialCount) || []);
   }, []);
 
-  const loadMoreDisplayedData = (data) => {
-    setDisplayCount((prevCount) => {
-      setDisplayedData(data.slice(0, prevCount));
+  useEffect(() => {
+    console.log('сюда');
+    if (data.length === initialCount || data.length === 0) {
+      setDisplayedData(data?.slice(0, initialCount) || []);
+    } else {
+      console.log('сюда');
+      
+      setDisplayCount((prevCount) => {
+        setDisplayedData(data?.slice(0, prevCount + initialCount) || []);
 
-      return prevCount + initialCount;
-    });
+        return prevCount + initialCount;
+      });
+    }
+  }, [data]);
+
+  const loadMoreDisplayedData = () => {
+    // if (data.length === initialCount || data.length === 0) {
+    //   setDisplayedData(data?.slice(0, initialCount) || []);
+    // } else {
+    //   setDisplayCount((prevCount) => {
+    //     setDisplayedData(data?.slice(0, prevCount + initialCount) || []);
+
+    //     return prevCount + initialCount;
+    //   });
+    // }
   };
 
   const reset = () => {

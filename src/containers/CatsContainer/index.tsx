@@ -24,7 +24,8 @@ export const CatsContainer = () => {
     useFetchedData();
 
   const { addLikedCats, removeLikedCats, likedCats } = useLikedCats();
-  const { displayedData, loadMoreDisplayedData } = useDisplayedData();
+  const { displayedData, loadMoreDisplayedData } =
+    useDisplayedData(fetchedData);
 
   const [ref, { entry }] = useIntersectionObserver();
   const isVisible = entry && entry.isIntersecting;
@@ -34,12 +35,16 @@ export const CatsContainer = () => {
   }, [isVisible]);
 
   const handleClickMore = async () => {
+    if (displayedData.length === 0) {
+      getFetchedData();
+      return;
+    }
+
     if (displayedData.length < fetchedData.length) {
-      console.log("local");
-      loadMoreDisplayedData(fetchedData);
+      loadMoreDisplayedData();
+      return;
     } else {
-      console.log("api");
-      getFetchedData({ callback: loadMoreDisplayedData });
+      getFetchedData();
     }
   };
 
@@ -71,10 +76,10 @@ export const CatsContainer = () => {
 
       <Button
         classes={styles.cats__upload}
-        onClick={() => {
-          clearDataAndFetch();
-          getFetchedData({ callback: loadMoreDisplayedData });
-        }}
+        // onClick={() => {
+        //   clearDataAndFetch();
+        //   getFetchedData({ callback: loadMoreDisplayedData });
+        // }}
         icon={updateIcon}
       />
       <Loader active={isLoadingData} />

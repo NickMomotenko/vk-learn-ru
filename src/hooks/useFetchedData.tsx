@@ -8,7 +8,7 @@ export const useFetchedData = () => {
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
   const defaultLoadCount = 20;
 
-  const getFetchedData = async ({ loadCount = defaultLoadCount, callback }) => {
+  const getFetchedData = async (loadCount = defaultLoadCount) => {
     setIsLoadingData(true);
 
     try {
@@ -40,13 +40,13 @@ export const useFetchedData = () => {
             ...uniqueCatData,
             ...(additionalUniqueData || []),
           ];
-          callback && callback(updatedData);
+          // callback && callback(updatedData);
           return updatedData;
         });
       } else {
         setFetchedData((prevData: any) => {
           let updatedData = [...prevData, ...uniqueCatData];
-          callback && callback(updatedData);
+          // callback && callback(updatedData);
           return updatedData;
         });
       }
