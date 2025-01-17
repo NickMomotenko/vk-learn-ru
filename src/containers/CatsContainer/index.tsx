@@ -1,12 +1,9 @@
-import { useEffect } from "react";
-
-import { useIntersectionObserver } from "react-intersection-observer-hook";
+import { useEffect, useState } from "react";
 
 import { Card } from "../../components/Card";
 import { List } from "../../components/List";
 import { Button } from "../../components/Button";
 import { Loader } from "../../components/Loader";
-// import { IntersectionBlock } from "../../components/IntersectionBlock";
 
 import { useFetchedData } from "../../hooks/useFetchedData";
 import { useLikedCats } from "../../hooks/useLikedCats";
@@ -16,42 +13,48 @@ import { CatTypes } from "../../types/types";
 import updateIcon from "../../assets/update.svg";
 
 import styles from "./styles.module.css";
-import { useDisplayedData } from "../../hooks/useDisplayedData";
-import { IntersectionBlock } from "../../components/IntersectionBlock";
 
 export const CatsContainer = () => {
-  const { fetchedData, getFetchedData, clearDataAndFetch, isLoadingData } =
-    useFetchedData();
+  const { fetchedData, getFetchedData, isLoadingData } = useFetchedData();
 
   const { addLikedCats, removeLikedCats, likedCats } = useLikedCats();
-  const { displayedData, loadMoreDisplayedData } =
-    useDisplayedData(fetchedData);
 
-  const [ref, { entry }] = useIntersectionObserver();
-  const isVisible = entry && entry.isIntersecting;
+  const [count, setCount] = useState(20);
 
-  useEffect(() => {
-    if (isVisible) handleClickMore();
-  }, [isVisible]);
+  const [renderedData, setRenderedData] = useState([]);
 
-  const handleClickMore = async () => {
-    if (displayedData.length === 0) {
-      getFetchedData();
-      return;
-    }
-
-    if (displayedData.length < fetchedData.length) {
-      loadMoreDisplayedData();
-      return;
+  const loadData = () => {
+    if (fetchedData.length > 0) {
+      // Если данные уже загружены, просто обновляем renderedData
+      setRenderedData(fetchedData.slice(0, count));
     } else {
+      // Если данных нет, загружаем их с сервера
       getFetchedData();
     }
   };
 
+  useEffect(() => {
+    loadData();
+  }, [fetchedData]); // Загружаем данные при изменении fetchedData
+
+  useEffect(() => {
+    // Обновляем отображаемые данные при изменении count
+    setRenderedData(fetchedData.slice(0, count));
+  }, [count, fetchedData]); // Обновляем отображаемые данные при изменении count или fetchedData
+
+  const handleMoreClick = () => {
+    const newCount = count + 20;
+    setCount(newCount);
+
+    // Если мы достигли конца fetchedData, загружаем больше данных
+    if (newCount > fetchedData.length) {
+      getFetchedData();
+    }
+  };
   return (
     <div className={styles.cats}>
       <List>
-        {displayedData?.map((cat: any) => {
+        {renderedData?.map((cat: any) => {
           let isLiked: boolean = likedCats?.some(
             (likedItem: CatTypes) => likedItem?.id === cat?.id
           );
@@ -71,8 +74,6 @@ export const CatsContainer = () => {
           );
         })}
       </List>
-      <Button onClick={handleClickMore}>Давай больше котов</Button>
-      <IntersectionBlock ref={ref} />
 
       <Button
         classes={styles.cats__upload}
@@ -82,6 +83,7 @@ export const CatsContainer = () => {
         // }}
         icon={updateIcon}
       />
+      <Button onClick={handleMoreClick}>Загрузи еще</Button>
       <Loader active={isLoadingData} />
     </div>
   );

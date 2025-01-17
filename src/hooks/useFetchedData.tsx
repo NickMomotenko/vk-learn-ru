@@ -40,20 +40,16 @@ export const useFetchedData = () => {
             ...uniqueCatData,
             ...(additionalUniqueData || []),
           ];
-          // callback && callback(updatedData);
           return updatedData;
         });
       } else {
         setFetchedData((prevData: any) => {
           let updatedData = [...prevData, ...uniqueCatData];
-          // callback && callback(updatedData);
           return updatedData;
         });
       }
     } catch (error) {
       alert("Произошла ошибка при загрузке данных.");
-
-      // await getFetchedData({});
     } finally {
       setIsLoadingData(false);
     }
@@ -61,7 +57,6 @@ export const useFetchedData = () => {
 
   const clearDataAndFetch = async () => {
     setFetchedData([]); // Очищаем данные
-    // await getFetchedData({ loadCount: defaultLoadCount });
   };
 
   return { fetchedData, isLoadingData, getFetchedData, clearDataAndFetch };
