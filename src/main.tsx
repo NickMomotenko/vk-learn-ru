@@ -4,7 +4,13 @@ import "./index.css";
 import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter basename={window.location.origin + window.location.pathname}>
+  <BrowserRouter
+    basename={
+      window.location.pathname.split("/").slice(1, 2).join("/")
+        ? `/${window.location.pathname.split("/").slice(1, 2).join("/")}`
+        : ""
+    }
+  >
     <App />
   </BrowserRouter>
 );
