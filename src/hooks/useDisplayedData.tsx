@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CatTypes } from "../types/types";
 
 export const useRenderData = (
-  fetchedData: CatTypes[],
+  fetchedData: CatTypes[] | any,
   getFetchedData?: () => void,
   initialCount = 20
 ) => {
