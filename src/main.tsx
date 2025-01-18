@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter basename="/">
+  <BrowserRouter basename="/vk-learn-ru">
     <App />
   </BrowserRouter>
 );
