@@ -1,4 +1,4 @@
-import { Navigate, Route, Router, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { Container } from "./components/Container";
 import { Menu } from "./components/Menu";
 import { CatsContainer } from "./containers/CatsContainer";
