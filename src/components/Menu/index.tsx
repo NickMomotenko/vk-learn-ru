@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 export const Menu = () => {
   let menuConfig = [
     { title: "Все котики", url: "/" },
-    { title: "Любимые котики", url: "/liked" },
+    { title: "Любимые котики 2", url: "/liked" },
   ];
 
   return (
