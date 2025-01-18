@@ -2,7 +2,6 @@
 node_modules/
 *.tsbuildinfo
 
-<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -27,5 +26,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-=======
->>>>>>> 9ac4c976050a9d4005e2e2e5751a2fe4901fa899
