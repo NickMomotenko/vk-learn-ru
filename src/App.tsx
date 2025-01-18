@@ -11,8 +11,8 @@ function App() {
       <Menu />
       <Content>
         <Routes>
-          <Route path="/" element={<CatsContainer />} />
-          <Route path="/liked" element={<LikedCatsContainer />} />
+          <Route path="" element={<CatsContainer />} />
+          <Route path="liked" element={<LikedCatsContainer />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
