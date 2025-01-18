@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { Card } from "../../components/Card";
 import { List } from "../../components/List";
 import { Button } from "../../components/Button";
@@ -5,12 +7,11 @@ import { Loader } from "../../components/Loader";
 
 import { useFetchedData } from "../../hooks/useFetchedData";
 import { useLikedCats } from "../../hooks/useLikedCats";
+import { useRenderData } from "../../hooks/useDisplayedData";
 
 import { CatTypes } from "../../types/types";
 
 import styles from "./styles.module.css";
-import { useRenderData } from "../../hooks/useDisplayedData";
-import { useEffect } from "react";
 
 export const CatsContainer = () => {
   const { fetchedData, getFetchedData, isLoadingData } = useFetchedData();

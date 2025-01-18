@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
+import { CatTypes } from "../types/types";
 
 export const useRenderData = (
-  fetchedData,
-  getFetchedData,
+  fetchedData: CatTypes[],
+  getFetchedData?: () => void,
   initialCount = 20
 ) => {
   const [count, setCount] = useState(initialCount);
   const [renderedData, setRenderedData] = useState([]);
 
   useEffect(() => {
-    // Обновляем отображаемые данные при изменении fetchedData или count
     setRenderedData(fetchedData.slice(0, count));
   }, [fetchedData, count]);
 
   const loadMoreData = () => {
-    const newCount = count + 20;
+    const newCount = count + initialCount;
     setCount(newCount);
 
-    // Если мы достигли конца fetchedData, загружаем больше данных
     if (newCount > fetchedData.length) {
-      getFetchedData();
+      getFetchedData && getFetchedData();
     }
   };
 
